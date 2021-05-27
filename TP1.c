@@ -1,32 +1,11 @@
-
 #include "TP1.h"
 
 
 int main()
 {
-/*  	char* cadena;
-    //a)longitud de una cadena
-	printf("Ingrese la cadena de caracteres: ");
-	gets(cadena);
-    int longitud = longitudCadena(cadena);
-    printf("La cadena %s es de longitud: %d",cadena,longitud);
-
-    //b) Convertir una cadena de digitos en su equivalente num�rico
-    printf("Ingrese la cadena de numeros:");
-    gets(cadena);
-    int numero = convertirCadenaADigitos (cadena);
-    printf("La cadena en digitos es: %d",numero); */
-
-    //c) Convertir una cadena de caracteres a la misma cadena con todos sus caracteres en may�scula.
-    char* cadena;
-    printf("Ingrese cadena");
-    fgets(cadena);
-    char* cadenaMayuscula = aMayuscula(cadena);
-    printf("LA CADENA ES: %s",cadenaMayuscula); 
-
+    
 	return 0;
 }
-
 
 /* Punto 1A */
 int longitudCadena (char* cadena)
@@ -62,7 +41,7 @@ char* aMayuscula(char* cadena){
             return (void*) concatenar((char*)acum,caracter-32);
         }
 
-        return acum;
+        return concatenar((char*)acum,caracter);
     }   
 
     return (char*)plegarCadena(cadena,_aMayuscula);
@@ -109,7 +88,7 @@ char* insertarEnPosicion(char *cadena, char caracter, int posicion){
 }
 
 /* Aux */
-char* plegarCadena(char* cadena, void*(*mutacion)(char*,void*)){
+void* plegarCadena(char* cadena, void*(*mutacion)(char*,void*)){
 
     char* aux = cadena;
     void* acumulador;

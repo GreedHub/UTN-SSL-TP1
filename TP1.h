@@ -10,4 +10,4 @@ char* aMayuscula(char* cadena);
 char* eliminarCaracter(char* cadena, char caracter);
 char* concatenar(char *primerCadena, char *segundaCadena);
 char* insertarEnPosicion(char *cadena, char caracter, int posicion);
-char* plegarCadena(char* cadena,  void*(*mutacion)(char*,void*));
+void* plegarCadena(char* cadena,  void*(*mutacion)(char*,void*));

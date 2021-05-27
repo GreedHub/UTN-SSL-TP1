@@ -4,4 +4,4 @@ all : TP1.c
 	gcc  -o "./Dist/TP1" ./Debug/TP1.o
 
 clean :
-	rm -f ./Dist/TP1 ./Debug/*
+	rm -rf ./Dist/TP1 ./Debug/*
