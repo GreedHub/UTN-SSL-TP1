@@ -3,7 +3,10 @@
 
 int main()
 {
-    
+    while( 1 ){
+        mostrarMenu();
+    }
+
 	return 0;
 }
 
@@ -85,6 +88,38 @@ char* insertarEnPosicion(char *cadena, char caracter, int posicion){
 
     return resultado;
 
+}
+
+/* Punto 2*/
+
+void mostrarMenu()
+{
+    printf("Ingrese la opcion de la funcion que quiere probar:\n");
+    printf("1 - obtenerLongitud\n");
+    printf("2 - cadenaANumeros\n");
+    printf("3 - cadenaAMayusculas\n");
+    printf("? - Salir\n");
+    int eleccion;
+    scanf("%d", &eleccion);
+    switch (eleccion)
+    {
+    case 1:
+        probarObtenerLongitud();
+        break;
+    case 2:
+        probarCadenaANumeros();
+        break;
+    case 3:
+        probarCadenaAMayusculas();
+        break;
+    case 5:
+        probarConcatenarCadenas();
+        break;
+    default:
+        printf("gracias por usar... saliendo...")
+        exit(0);
+        break;
+    }
 }
 
 /* Aux */
