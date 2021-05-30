@@ -76,10 +76,13 @@ char *eliminarCaracter(char *cadena, char caracterEliminar)
 
     char* aux = cadena;
 
-    while(*aux !=  '\0'){        
+    while(*aux != '\0'){        
 
         if (*aux != caracterEliminar){
-            concatenar(resultado, &*aux);
+            char subCadena[1] = {*aux};  
+            char* concatenado = concatenar(resultado, subCadena);
+            free(resultado);
+            resultado = concatenado;
         }
 
         aux++;
