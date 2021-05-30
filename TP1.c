@@ -2,6 +2,7 @@
 
 int main()
 {
+
     while (1)
     {
         mostrarMenu();
@@ -26,49 +27,67 @@ int longitudCadena(char *cadena)
 /* Punto 1B */
 int convertirCadenaADigitos(char *cadena)
 {
-    void *_aDigitos(char *caracter, void *acum)
-    {
 
-        int numero = *(int *)acum;
-        return numero * 10 + (caracter - '0');
+    int numero = 0;
+    int signo = 1;
+    char* aux = cadena;
+
+    if(*aux == '-') {
+        signo = -1; 
+        aux++;
     }
-    return *(int *)plegarCadena(cadena, _aDigitos);
+
+    while(*aux !=  '\0'){
+        if(*aux < '0' || *aux > '9'){
+            imprimirError("\nEl numero ingresado no es valido\n");
+            return -1;
+        }
+        numero = numero * 10 + (*aux - '0');
+        aux++;
+    }
+    
+    return numero * signo; 
 }
 
 /* Punto 1C */
 char *aMayuscula(char *cadena)
 {
-
-    void *_aMayuscula(char *caracter, void *acum)
-    {
-
-        if (*caracter >= 'a' && *caracter <= 'z')
+    char* resultado = (char*)malloc(sizeof(char)*longitudCadena(cadena)+1);
+    memcpy(resultado,cadena,sizeof(char)*longitudCadena(cadena)+1);
+    char* aux = resultado;
+    
+    while(*aux !=  '\0'){
+        if (*aux >= 'a' && *aux <= 'z')
         {
-            return (void *)concatenar((char *)acum, caracter - 32);
+            *aux = *aux -32;
         }
-
-        return concatenar((char *)acum, caracter);
+        aux++;
     }
 
-    return (char *)plegarCadena(cadena, _aMayuscula);
+    return resultado;
 }
 
 /* Punto 1D */
-char *eliminarCaracter(char *cadena, char caracter)
+char *eliminarCaracter(char *cadena, char caracterEliminar)
 {
 
-    void *_eliminarCaracter(char *_caracter, void *acum)
-    {
+    char* resultado = (char*) malloc(sizeof(char));
+    *resultado = '\0';
 
-        if (*_caracter != caracter)
-        {
-            return (void *)concatenar((char *)acum, _caracter);
+    char* aux = cadena;
+
+    while(*aux !=  '\0'){        
+
+        if (*aux != caracterEliminar){
+            concatenar(resultado, &*aux);
         }
 
-        return acum;
+        aux++;
+
     }
 
-    return (char *)plegarCadena(cadena, _eliminarCaracter);
+    return resultado;
+
 }
 
 /* Punto 1E */
@@ -99,7 +118,8 @@ char *insertarEnPosicion(char *cadena, char caracter, int posicion)
 
 void mostrarMenu()
 {
-    printf("Ingrese la opcion de la funcion que quiere probar:\n");
+    system(CLI_CLEAR);
+    imprimirTitulo("Ingrese la opcion de la funcion que quiere probar:");
     printf("1 - obtenerLongitud\n");
     printf("2 - convertirCadenaADigitos\n");
     printf("3 - aMayuscula \n");
@@ -107,8 +127,11 @@ void mostrarMenu()
     printf("5 - concatenar \n");
     printf("6 - insertarEnPosicion \n");
     printf("7 - Salir \n");
+    printf("\nSeleccion: ");
     int eleccion;
     scanf("%d", &eleccion);
+    vaciarInput();
+    system(CLI_CLEAR);
     switch (eleccion)
     {
     case 1:
@@ -126,6 +149,7 @@ void mostrarMenu()
         probarConcatenar();
         break;
     case 6:
+        system(CLI_CLEAR);
         probarInsertarEnPosicion();
         break;
     case 7:
@@ -139,63 +163,61 @@ void mostrarMenu()
     printf("\n \n");
 }
 
-/* Aux */
-void *plegarCadena(char *cadena, void *(*mutacion)(char *, void *))
-{
-
-    char *aux = cadena;
-    void *acumulador;
-
-    while (*aux != '\0')
-    {
-        void *auxAcum = mutacion(aux, acumulador);
-        free(acumulador);
-        acumulador = auxAcum;
-        aux++;
-    }
-
-    return acumulador;
-}
-
 /*Tests*/
 
 void probarLongitudCadena()
 {
-    printf("Ingrese una cadena de caracteres: \n");
+    imprimirTitulo("Longitud de cadena");
+    printf("Ingrese una cadena de caracteres: ");
     char cadena[tamanio];
     scanf("%s", cadena);
+    vaciarInput();
     int longitud = longitudCadena(cadena);
-    printf("La longitud de la cadena ingresada es: %d", longitud);
+    printf("\nLa longitud de la cadena ingresada es: %d", longitud);
+    presioneParaContinuar();
     return;
 }
 
 void probarConvertirCadenaADigitos()
 {
-    printf("Ingrese una cadena de caracteres: \n");
+    imprimirTitulo("Convertir cadena a digitos");
+
+    printf("Ingrese una cadena de caracteres: ");
     char cadena[tamanio];
     scanf("%s", cadena);
+    vaciarInput();
     int cadenaConvertida = convertirCadenaADigitos(cadena);
-    printf("El equivalente numerico de la cadena ingresada es: %d", cadenaConvertida);
+    printf("\nEl resultado es: %d", cadenaConvertida);
+    presioneParaContinuar();
     return;
 }
 
 void probarAMayuscula()
 {
-    printf("Ingrese una cadena de caracteres: \n");
+    imprimirTitulo("Convertir cadena a mayuscula");
+    printf("Ingrese una cadena de caracteres: ");
     char cadena[tamanio];
     scanf("%s", cadena);
-    printf("Transformado a Mayuscula: %s", aMayuscula(cadena));
+    vaciarInput();
+    printf("\nTransformado a Mayuscula: %s", aMayuscula(cadena));
+    presioneParaContinuar();
 }
 
 void probarConcatenar()
 {
     char cadena[tamanio];
     char otraCadena[tamanio];
-    printf("Ingrese una cadena de caracteres: \n");
+    imprimirTitulo("Concatenar cadenas");
+    printf("Ingrese una cadena de caracteres: ");
     scanf("%s", cadena);
-    printf("Ingrese otra cadena de caracteres: \n");
+    vaciarInput();
+    printf("Ingrese otra cadena de caracteres: ");
     scanf("%s", otraCadena);
-    printf("%s", concatenar(cadena, otraCadena));
+    vaciarInput();
+    printf("\nEl resultado es: %s", concatenar(cadena, otraCadena));
+    
+    presioneParaContinuar();
+
     return;
 }
 
@@ -203,11 +225,17 @@ void probarEliminarCaracter()
 {
     char cadena[tamanio];
     char caracter;
-    printf("Ingrese una cadena de caracteres: \n");
+    imprimirTitulo("Eliminar caracter");
+    printf("Ingrese una cadena de caracteres: ");
     scanf("%s", cadena);
-    printf("Ingrese el caracter que desea eliminar de la cadena: \n");
+    vaciarInput();
+    printf("Ingrese el caracter que desea eliminar de la cadena: ");
     scanf("%c", &caracter);
-    printf("%s", eliminarCaracter(cadena, caracter));
+    vaciarInput();
+    printf("\nEl resultado es: %s", eliminarCaracter(cadena, caracter));
+
+    presioneParaContinuar();
+
     return;
 }
 
@@ -216,12 +244,41 @@ void probarInsertarEnPosicion()
     char cadena[tamanio];
     char caracter;
     int posicion;
-    printf("Ingrese una cadena de caracteres: \n");
+    imprimirTitulo("Insertar caracter en posición");
+    printf("Ingrese una cadena de caracteres: ");
     scanf("%s", cadena);
-    printf("Ingrese el caracter que desea insertar en la cadena: \n");
+    vaciarInput();
+    printf("Ingrese el caracter que desea insertar en la cadena: ");
     scanf("%c", &caracter);
-    printf("Ingrese la posicion donde desea insertarlo: \n");
+    vaciarInput();
+    printf("Ingrese la posicion donde desea insertarlo: ");
     scanf("%d", &posicion);
-    printf("%s", insertarEnPosicion(cadena, caracter, posicion));
+    vaciarInput();
+    printf("\nEl resultado es: %s", insertarEnPosicion(cadena, caracter, posicion));
+
+    presioneParaContinuar();
+
     return;
+}
+
+/* Auxiliares */
+void imprimirTitulo(char* titulo){
+    printf("\033[0;32m");
+    printf("%s\n\n",titulo);
+    printf("\033[0m");
+}
+
+void imprimirError(char* error){
+    printf("\033[0;31m");
+    printf("%s",error);
+    printf("\033[0m");
+}
+
+void presioneParaContinuar(){
+    printf("\n\nPresione una tecla para continuar...");
+    fgetc(stdin);
+}
+
+void vaciarInput(){
+    while ((getchar()) != '\n');
 }
