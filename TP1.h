@@ -33,3 +33,4 @@ void imprimirTitulo(char* titulo);
 void presioneParaContinuar();
 void vaciarInput();
 void imprimirError(char* error);
+char* crearCadena(char* contenido);

@@ -52,8 +52,7 @@ int convertirCadenaADigitos(char *cadena)
 /* Punto 1C */
 char *aMayuscula(char *cadena)
 {
-    char* resultado = (char*)malloc(sizeof(char)*longitudCadena(cadena)+1);
-    memcpy(resultado,cadena,sizeof(char)*longitudCadena(cadena)+1);
+    char* resultado = crearCadena(cadena);
     char* aux = resultado;
     
     while(*aux !=  '\0'){
@@ -71,16 +70,14 @@ char *aMayuscula(char *cadena)
 char *eliminarCaracter(char *cadena, char caracterEliminar)
 {
 
-    char* resultado = (char*) malloc(sizeof(char));
-    *resultado = '\0';
-
+    char* resultado = crearCadena(NULL);
     char* aux = cadena;
 
     while(*aux != '\0'){        
 
         if (*aux != caracterEliminar){
-            char subCadena[1] = {*aux};  
-            char* concatenado = concatenar(resultado, subCadena);
+            char caracter = *aux;
+            char* concatenado = insertarEnPosicion(resultado, caracter, longitudCadena(resultado)+1);
             free(resultado);
             resultado = concatenado;
         }
@@ -106,18 +103,13 @@ char *concatenar(char *primerCadena, char *segundaCadena)
 /* Punto 1F */
 char *insertarEnPosicion(char *cadena, char caracter, int posicion)
 {
-    char *resultado;
-
+    
     if(posicion > longitudCadena(cadena) + 1 || posicion < 0){
-        imprimirError("\nLa posicion ingresada no es valida\n");
-        resultado = (char*) malloc(sizeof(char));
-        *resultado = '\0';
-        char codigoError[2] = "-1"; 
-        char * concatenado = concatenar(resultado,codigoError);
-        free(resultado);
-        return concatenado;
+        imprimirError("\nLa posicion ingresada no es valida\n");         
+        return crearCadena("-1");
     }
 
+    char *resultado;
     resultado = (char*) malloc(sizeof(char)* longitudCadena(cadena) + 2);
 
     memcpy(resultado, cadena, posicion - 1);
@@ -304,3 +296,22 @@ void presioneParaContinuar(){
 void vaciarInput(){
     while ((getchar()) != '\n');
 }
+
+char* crearCadena(char* contenido){
+
+    char* _crearCadenaVacia(){
+        char* resultado = (char*) malloc(sizeof(char));
+        *resultado = '\0'; 
+        return resultado;
+    }
+
+    if(contenido == NULL){
+        return _crearCadenaVacia();
+    }
+
+    char* cadenaVacia = _crearCadenaVacia();
+    char* cadena = concatenar(cadenaVacia,contenido);
+    free(cadenaVacia);
+    return cadena;
+}
+
