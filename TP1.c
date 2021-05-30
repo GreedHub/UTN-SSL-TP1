@@ -106,9 +106,19 @@ char *concatenar(char *primerCadena, char *segundaCadena)
 /* Punto 1F */
 char *insertarEnPosicion(char *cadena, char caracter, int posicion)
 {
-
     char *resultado;
-    resultado = malloc(longitudCadena(cadena) + 2);
+
+    if(posicion > longitudCadena(cadena)){
+        imprimirError("\nLa posicion ingresada no es valida\n");
+        resultado = (char*) malloc(sizeof(char));
+        *resultado = '\0';
+        char codigoError[2] = "-1"; 
+        char * concatenado = concatenar(resultado,codigoError);
+        free(resultado);
+        return concatenado;
+    }
+
+    resultado = (char*) malloc(sizeof(char)* longitudCadena(cadena) + 2);
 
     memcpy(resultado, cadena, posicion - 1);
     memcpy(resultado + posicion - 1, &caracter, 1);
