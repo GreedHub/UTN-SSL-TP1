@@ -108,7 +108,7 @@ char *insertarEnPosicion(char *cadena, char caracter, int posicion)
 {
     char *resultado;
 
-    if(posicion > longitudCadena(cadena) + 1 ){
+    if(posicion > longitudCadena(cadena) + 1 || posicion < 0){
         imprimirError("\nLa posicion ingresada no es valida\n");
         resultado = (char*) malloc(sizeof(char));
         *resultado = '\0';
