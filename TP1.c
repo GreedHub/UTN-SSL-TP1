@@ -76,8 +76,7 @@ char *eliminarCaracter(char *cadena, char caracterEliminar)
     while(*aux != '\0'){        
 
         if (*aux != caracterEliminar){
-            char caracter = *aux;
-            char* concatenado = insertarEnPosicion(resultado, caracter, longitudCadena(resultado)+1);
+            char* concatenado = insertarEnPosicion(resultado, *aux, longitudCadena(resultado)+1);
             free(resultado);
             resultado = concatenado;
         }
