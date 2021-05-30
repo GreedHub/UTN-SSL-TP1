@@ -148,11 +148,11 @@ void mostrarMenu()
         break;
     case 4:
         probarEliminarCaracter();
+        break;
     case 5:
         probarConcatenar();
         break;
     case 6:
-        system(CLI_CLEAR);
         probarInsertarEnPosicion();
         break;
     case 7:
@@ -202,7 +202,10 @@ void probarAMayuscula()
     char cadena[tamanio];
     scanf("%s", cadena);
     vaciarInput();
-    printf("\nTransformado a Mayuscula: %s", aMayuscula(cadena));
+    char* resultado = aMayuscula(cadena);
+    printf("\nTransformado a Mayuscula: %s", resultado);
+    free(resultado);
+
     presioneParaContinuar();
 }
 
@@ -217,7 +220,9 @@ void probarConcatenar()
     printf("Ingrese otra cadena de caracteres: ");
     scanf("%s", otraCadena);
     vaciarInput();
-    printf("\nEl resultado es: %s", concatenar(cadena, otraCadena));
+    char* resultado = concatenar(cadena, otraCadena);
+    printf("\nEl resultado es: %s", resultado);
+    free(resultado);
     
     presioneParaContinuar();
 
@@ -235,7 +240,9 @@ void probarEliminarCaracter()
     printf("Ingrese el caracter que desea eliminar de la cadena: ");
     scanf("%c", &caracter);
     vaciarInput();
-    printf("\nEl resultado es: %s", eliminarCaracter(cadena, caracter));
+    char* resultado = eliminarCaracter(cadena, caracter);
+    printf("\nEl resultado es: %s", resultado);
+    free(resultado);
 
     presioneParaContinuar();
 
@@ -257,7 +264,9 @@ void probarInsertarEnPosicion()
     printf("Ingrese la posicion donde desea insertarlo: ");
     scanf("%d", &posicion);
     vaciarInput();
-    printf("\nEl resultado es: %s", insertarEnPosicion(cadena, caracter, posicion));
+    char* resultado = insertarEnPosicion(cadena, caracter, posicion);
+    printf("\nEl resultado es: %s", resultado);
+    free(resultado);
 
     presioneParaContinuar();
 
