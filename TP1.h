@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
-#include <string.h>
+
+#define tamanio 51 //Los arrays seran de maximo 50 caracteres + el \0
 
 #ifdef _WIN32
  #define CLI_CLEAR "cls"
@@ -19,7 +18,6 @@ char *concatenar(char *primerCadena, char *segundaCadena);
 char *insertarEnPosicion(char *cadena, char caracter, int posicion);
 
 /* Pruebas */
-#define tamanio 51 //Los arrays seran de maximo 50 caracteres + el \0
 void mostrarMenu();
 void probarLongitudCadena();
 void probarConvertirCadenaADigitos();
@@ -34,3 +32,4 @@ void presioneParaContinuar();
 void vaciarInput();
 void imprimirError(char* error);
 char* crearCadena(char* contenido);
+void copiarMemoria(void *destino, void *origen, int cantidadBytes);

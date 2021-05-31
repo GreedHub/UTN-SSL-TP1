@@ -94,8 +94,8 @@ char *concatenar(char *primerCadena, char *segundaCadena)
 {
     char *concatenado;
     concatenado = malloc(longitudCadena(primerCadena) + longitudCadena(segundaCadena) + 1);
-    memcpy(concatenado, primerCadena, longitudCadena(primerCadena));
-    memcpy(concatenado + longitudCadena(primerCadena), segundaCadena, longitudCadena(segundaCadena) + 1);
+    copiarMemoria(concatenado, primerCadena, longitudCadena(primerCadena));
+    copiarMemoria(concatenado + longitudCadena(primerCadena), segundaCadena, longitudCadena(segundaCadena) + 1);
     return concatenado;
 }
 
@@ -111,9 +111,9 @@ char *insertarEnPosicion(char *cadena, char caracter, int posicion)
     char *resultado;
     resultado = (char*) malloc(sizeof(char)* longitudCadena(cadena) + 2);
 
-    memcpy(resultado, cadena, posicion - 1);
-    memcpy(resultado + posicion - 1, &caracter, 1);
-    memcpy(resultado + posicion, cadena + posicion - 1, longitudCadena(cadena) - posicion + 2);
+    copiarMemoria(resultado, cadena, posicion - 1);
+    copiarMemoria(resultado + posicion - 1, &caracter, 1);
+    copiarMemoria(resultado + posicion, cadena + posicion - 1, longitudCadena(cadena) - posicion + 2);
 
     return resultado;
 }
@@ -314,3 +314,11 @@ char* crearCadena(char* contenido){
     return cadena;
 }
 
+void copiarMemoria(void *destino, void *origen, int cantidadBytes){
+
+   char *cadenaOrigen = (char*)origen;
+   char *cadenaDestino = (char*)destino; 
+
+   for (int i=0; i<cantidadBytes; i++)
+       cadenaDestino[i] = cadenaOrigen[i];
+}
